@@ -1,0 +1,13 @@
+name = "Comment displays"
+description = "Extended comment display options"
+core = "6.x"
+dependencies[] = ds
+dependencies[] = comment
+package = "Display suite"
+
+; Information added by drupal.org packaging script on 2012-01-23
+version = "6.x-2.2"
+core = "6.x"
+project = "cd"
+datestamp = "1327298737"
+

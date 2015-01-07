@@ -1,0 +1,136 @@
+<?php
+
+/**
+ * @file
+ * Empty paragraph killer: because users are sometimes overzealous
+ * with the return key.
+ */
+
+/**
+ * Implementation of hook_filter().
+ */
+function emptyparagraphkiller_filter($op, $delta = 0, $format = -1, $text = '', $cache_id = 0) {
+  switch ($op) {
+    case 'list':
+      return array(
+        0 => t('Empty paragraph killer'),
+        1 => t('Arbitrary empty HTML tag killer'),
+        2 => t('Preceding space destroyer')
+      );
+
+    case 'description':
+      switch ($delta) {
+        case 0:
+          return t('Content editors/creators sometimes hit the carriage return
+          twice at the end of a paragraph. This may not be in keeping with the
+          look and feel of your site. When entering more than one carriage
+          return, this filter will ensure that only the first will be honored.
+          If your content is prone to having other empty HTML tags as well as
+          the paragraph tag, use the "Arbitrary empty HTML tag killer", and
+          choose the tags to be filtered.'
+          );
+        case 1:
+          return t('Allows you to filter out selected html tags which contain
+          no content. If your primary concern is empty paragraph tags, use the
+          "Empty paragraph killer" for higher performance and zero
+          configuration. Also enable and configure the HTML filter when using
+          this filter.');
+        case 2:
+          return t('Removes non-breaking spaces (<strong>&amp;nbsp;</strong>) at
+          the beginning of sentences. These are often created unknowingly by
+          content editors/creators on text fields with WYSIWYG editors.');
+      }
+
+    case 'no cache':
+      // This case can be removed for most filters, but returning TRUE is useful for development.
+      return TRUE;
+
+    case 'prepare':
+      return $text;
+
+    case 'process':
+      switch ($delta) {
+        case 0:
+          // Empty paragraph killer filter
+          $text = preg_replace('#<p[^>]*>(\s|&nbsp;?)*</p>#', '', $text);
+          return $text;
+        case 1:
+          // Filter arbitrary set of tags chosen by the site administrator.
+          // Iterate over each configured HTML tag and chack if the tag is empty.
+          foreach (explode(' ', variable_get("emptyparagraphkiller_tags_$format", 'p')) as $tag) {
+            $text = preg_replace('#<'. $tag .'[^>]*>(\n|\r\n|\s|&nbsp;?)*</'. $tag .'>#', '', $text);
+          }
+          // If the result only contains whitespaces, reurn an empty string.
+          return (trim($text) == '' ? '' : $text);
+        case 2:
+          // Removes &npsp; at the beginning of paragraphs
+          $text = preg_replace('#<p[^>]*>(\s|&nbsp;?)#', '<p>', $text);
+          return $text;
+      }
+    case 'settings':
+      case 0:
+      case 1:
+        $form['emptyparagraphkiller'] = array(
+          '#type' => 'fieldset',
+          '#title' => t('Empty paragraph killer'),
+          '#collapsible' => TRUE,
+        );
+        $form['emptyparagraphkiller']["emptyparagraphkiller_tags_$format"] = array(
+          '#type' => 'textfield',
+          '#title' => t('HTML tags'),
+          '#default_value' => variable_get("emptyparagraphkiller_tags_$format", 'p'),
+          '#required' => TRUE,
+          '#description' => t('Add a list of tag names, separated by a space, to
+           check whether or not the element is empty. Empty elements will be
+           stripped from the filtered string.'),
+        );
+        return $form;
+      case 2:
+  }
+}
+
+/**
+ * Implementation of hook_filter_tips().
+ */
+function emptyparagraphkiller_filter_tips($delta, $format, $long = FALSE) {
+  // OPTIONAL: If more than one filter was defined in hook_filter, perform switch on $delta
+  switch ($delta) {
+    case 0:
+      // Empty paragraph killer filter tip
+      switch ($long) {
+        case FALSE:
+          return t('Empty paragraph killer - multiple returns will not break the
+          site\'s style.');
+        case TRUE:
+          return '<p>' . t('Your typing habits may include hitting the return
+          key twice when completing a paragraph. This site will accomodate your
+          habit, and ensure the content is in keeping with the the stylistic
+          formatting of the site\'s theme.') . '</p>';
+      }
+    case 1:
+      // Arbitrary empty html tag filter tip
+      switch ($long) {
+        case FALSE:
+          return t('Specific empty HTML tags have been chosen to be filtered by
+          your site administrator.');
+        case TRUE:
+          return '<p>' . t('Your site administrator has chosen to supress the
+          display of specific HTML tags if there is no content to be displayed
+          within them.') . '</p>';
+      }
+    case 2:
+      // Tip for the non-breaking space remover which sometimes sneak into the beginning of paragraphs
+      switch ($long) {
+        case FALSE:
+          return t('The first non-breaking space (<strong>&amp;nbsp;</strong>)
+          at the beginning of a paragraph will be removed. These are often added
+          erroneously by WYSIWYG editors.');
+        case TRUE:
+          return '<p>' . t('WYSIWYG editors often add a non-breaking space
+          (<strong>&amp;nbsp;</strong>) at the beginning of newly created
+          paragraphs. The first such space at the beginning of a paragraph will
+          be removed.') . '</p>';
+      }
+  }
+}
+

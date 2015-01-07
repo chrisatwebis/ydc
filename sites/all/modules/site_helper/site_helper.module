@@ -1,0 +1,56 @@
+<?php
+	
+	/*
+	 * Implemetation of hook_init
+	 * */
+	function site_helper_init()
+	{
+		
+		drupal_add_css(drupal_get_path('module', 'site_helper') .'/site_helper.css');
+
+		$url = request_uri();
+		if($url == '/media'){
+			$video_result = db_query_range('SELECT nid, created, changed FROM {node} WHERE type="media_video" ORDER BY created DESC', 0, 1);
+			$news_result = db_query_range('SELECT nid, created, changed FROM {node} WHERE type="media_news" ORDER BY created DESC', 0, 1);
+			$video = db_fetch_array($video_result);
+			$news = db_fetch_array($news_result);
+			if(!empty($video['changed']) && !empty($news['changed'])){
+				if($video['changed'] < $news['changed']){
+					drupal_goto("media/news");
+				}else{
+					drupal_goto("media/videos");
+				}
+			}
+
+		}
+		return true;	
+		
+
+ 	}
+	
+	/**
+	* Build an options list for property filtering.
+	*/
+	function site_helper_form_alter(&$form, &$form_state, $form_id) 
+	{	
+		//var_dump($form_id);
+		switch ($form_id) {
+			case 'views_exposed_form' :
+			if ($form_state['view']->name == 'taxonomy_term') {
+				$form["#prefix"] = "<div class='exposed_form_title'>".t("Filters:")."</div>";
+				$form["#attributes"]["class"] .= " views_exposed_form_class "; 
+				foreach($form as $fl => &$fd)
+				{
+					
+					if( isset($fd["#type"]) && $fd["#type"]=='select' && isset($fd["#options"]["All"]))
+					{
+						$fd["#options"]["All"] = "All";
+
+					}
+				}
+			}
+			break;
+		}
+		
+	}
+

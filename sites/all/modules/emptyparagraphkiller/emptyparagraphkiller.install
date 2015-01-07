@@ -1,0 +1,19 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the emptyparagraphkiller module.
+ */
+ 
+/*
+ * Implementation of hook_uninstall().
+ *
+ * Find each one of the emptyparagraphkiller_tags_% and remove them one by one.
+ * There is little reason to think there could be more than one, but it's
+ * future proofed this way.
+ */
+function emptyparagraphkiller_uninstall() {
+  $result = db_query("SELECT name FROM {variable} WHERE name LIKE 'emptyparagraphkiller_tags_%%'");
+  while ($row = db_fetch_array($result)) {
+    variable_del($row['name']);
+  }
+}
