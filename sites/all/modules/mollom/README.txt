@@ -54,6 +54,13 @@ None.
     RewriteEngine On
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
+-- OPTIONAL INSTALLATION --
+ * Download and enable the libraries module: http://drupal.org/project/libraries
+ * Download the asmSelect JavaScript UI widget into your libraries location
+   - Download from https://code.google.com/p/jquery-asmselect/downloads/list
+     and save in your libraries location in a new "asmselect" folder.
+   - See instructions from the libraries module for details:
+     https://www.drupal.org/node/1440066
 
 -- CONFIGURATION --
 
@@ -119,6 +126,7 @@ A: Out of the box, the Mollom module allows to protect Drupal core forms only.
 For questions pertaining to the Mollom service go to https://mollom.com/support
 
 Current maintainers:
+* Lisa Backer (eshta) - http://drupal.org/user/1951462
 * Daniel F. Kudwien (sun) - http://drupal.org/user/54136
 * Dries Buytaert (Dries) - http://drupal.org/user/1
 
