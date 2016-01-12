@@ -1,5 +1,4 @@
 <?php
-// $Id: draggableviews.inc,v 1.7.2.37 2009/09/07 19:14:47 sevi Exp $
 
 /**
  * @file

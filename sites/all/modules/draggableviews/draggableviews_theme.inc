@@ -1,5 +1,4 @@
 <?php
-// $Id: draggableviews_theme.inc,v 1.6.2.31 2010/08/27 14:10:30 sevi Exp $
 
 /**
  * @file
@@ -72,6 +71,11 @@ function template_preprocess_draggableviews_view_draggabletable(&$vars, $style_p
     $vars['fields'][$field] = views_css_safe($field);
     if ($active == $field) {
       $vars['fields'][$field] .= ' active';
+    }
+
+    // Add a CSS align class to each field if one was set
+    if (!empty($options['info'][$field]['align'])) {
+      $vars['fields'][$field] .= ' ' . views_css_safe($options['info'][$field]['align']);
     }
 
     // Render each field into its appropriate column.
@@ -286,7 +290,7 @@ function template_preprocess_draggableviews_view_draggabletable(&$vars, $style_p
   drupal_add_css(drupal_get_path('module', 'draggableviews') .'/styles.css');
 }
 
-function template_preprocess_draggableviews_view_draggabletable_form($vars) {
+function template_preprocess_draggableviews_view_draggabletable_form(&$vars) {
   // Get style plugin.
   $style_plugin = $vars['form']['#parameters'][2];
   // Get structured info array.
@@ -321,6 +325,7 @@ function theme_draggableviews_ui_style_plugin_draggabletable($form) {
 
   $header = array(
     t('Field'),
+    t('Justification'),
     t('Column'),
     t('Separator'),
     array(
@@ -332,6 +337,7 @@ function theme_draggableviews_ui_style_plugin_draggabletable($form) {
   foreach (element_children($form['columns']) as $id) {
     $row = array();
     $row[] = drupal_render($form['info'][$id]['name']);
+    $row[] = drupal_render($form['info'][$id]['align']);
     $row[] = drupal_render($form['columns'][$id]);
     $row[] = drupal_render($form['info'][$id]['separator']);
     if (!empty($form['info'][$id]['sortable'])) {

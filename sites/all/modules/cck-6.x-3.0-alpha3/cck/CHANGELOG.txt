@@ -1,6 +1,19 @@
+CCK 6.x-3.0-alpha4
+==================
 
-CCK 6.x-3.x
-===========
+- Security: Open Redirect - SA-CONTRIB-2015-126
+- #1401950 by KarenS, Add empty test module with dependency on schema to make schema available to testbot.
+- #1363036 by markdorison, Fix Class 'ContentCrudTestCase' not found message in tests.
+- #1097548 by DeFr: Fixed warning on node forms for multigroups without any required fields.
+- #998494 by zhangtaihao: Fix Node Reference field always displaying 10 results
+  when using the Advanced View option (with Views 6.x-3.x)
+- #1167004 by DeFr: Dramatically enhance node display performance issues.
+- #1189090 by gaurishankar, yched: Fixed warnings on multigroups with no
+  required fields.
+- #1423432 by sun: Fixed testInfo() methods throws PHP notices.
+- #1533506 by yched: Fixed field tokens not available in hook_update_N().
+- #1442886 by pdrake: Fixed fatal error "failed opening theme.inc" in some edge
+  cases.
 
 CCK 6.x-3.0-alpha3
 ==================
@@ -10,7 +23,7 @@ CCK 6.x-3.0-alpha3
 - Fix miscellaneous undefined index errors.
 - #1081072 Tweak fix for required fields inside non-required group so not all fields are highlighted.
 - #1093928 Required option lists do not have an empty option available. Add one to avoid 'An illegal choice has been detected' errors for empty groups.
-- #1081072 Fix Cannot use a scalar value as an array problem when using optionwidgets. 
+- #1081072 Fix Cannot use a scalar value as an array problem when using optionwidgets.
 
 CCK 6.x-3.0-alpha2
 ==================
@@ -69,7 +82,7 @@ Features:
 
 Bugfixes:
 - Multigroups were defaulting to 'required' when created, should default to 'not required'.
-- #766734 Restructure multigroup field layout to be consistent with other fieldgroups, and use 
+- #766734 Restructure multigroup field layout to be consistent with other fieldgroups, and use
   content_get_nested_elements() to grab the right values no matter how the fields are structured.
 - #739490 by foripepe: Token integration - fix notices during token generation
 - #986612 by Dave Reid: Token integration - fix variable name clash (harmless in normal cases)
