@@ -2,3 +2,7 @@
 sites/default/settings.php
 sites/default
 cache
+error_log
+temp
+robots.txt
+
