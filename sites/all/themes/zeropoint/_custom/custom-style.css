@@ -2694,3 +2694,17 @@ body.page-gallery-term #main
 #edit-homepage-wrapper{
   display:none;
 }
+
+/* update footer */
+#footer .architizer a {
+    background: url("../images/architizer.png") no-repeat 0px 0 scroll transparent;  
+}
+#footer #below .downsview_logo_link a{
+    display: block;
+    height: 60px;
+    background: url("../images/downsview_logo.png") no-repeat 0px 0 scroll transparent;  
+    color: transparent !important;
+}
+
+
+
