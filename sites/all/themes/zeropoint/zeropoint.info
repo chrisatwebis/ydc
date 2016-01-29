@@ -8,11 +8,12 @@ php = DRUPAL_MINIMUM_PHP
 
 stylesheets[print][] = css/print.css
 
-regions[left] = Left sidebar
-regions[right] = Right sidebar
 regions[above] = Above
 regions[banner] = Banner
+regions[navigation] = Navigation
 regions[header] = Header
+regions[left] = Left sidebar
+regions[right] = Right sidebar
 regions[user1] = User 1
 regions[user2] = User 2
 regions[user3] = User 3

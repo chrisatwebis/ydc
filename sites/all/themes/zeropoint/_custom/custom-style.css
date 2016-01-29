@@ -2072,7 +2072,7 @@ body.front #logo {
     padding-bottom: 5px;
     padding-left: 5px;
 }
-body.front .navright {
+body.front #navigation {
     background: url("../images/navbg.png") no-repeat scroll right bottom transparent;
     float: right;
     padding-bottom: 5px;
@@ -2438,7 +2438,7 @@ body.front #block-facebook_pull-facebook_pull_default h2.title
 }
 
 #footer .addthis_button_facebook_like{
-    margin-right: 12px;
+    margin-right: 2px;
 }
 /*
 *	Custom Image Scroller with lightbox styling
@@ -2705,6 +2705,75 @@ body.page-gallery-term #main
     background: url("../images/downsview_logo.png") no-repeat 0px 0 scroll transparent;  
     color: transparent !important;
 }
+
+/* background height adjust */
+#bg1 {
+    min-height: 980px;
+}
+
+/**
+*  navigation drop down menu 
+ ****/
+ #navigation {
+    float: right;
+}
+#logo_n_menu {
+    overflow: visible;
+}
+.navright {
+    display: none;
+}
+#nice-menu-1 > li {
+    border: none;
+    background: url("../images/navline.gif") left bottom no-repeat #FFFFFF;
+    display: block;
+    float: left;
+}
+#nice-menu-1 > li > a {
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    height: 30px;
+    line-height: 14px;
+    padding: 50px 0 0;
+    text-align: center;
+    vertical-align: bottom;
+    width: 85px;
+}
+#nice-menu-1 ul {
+    top: 70px;
+}
+#nice-menu-1 > li > ul > li {
+    background-color: #FFFFFF;
+}
+#nice-menu-1 > li > ul > li > a {
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 12px;
+    text-align: left;
+    height: 20px;
+    line-height: 20px;
+}
+#nice-menu-1 a:hover {
+    background-color: #B2DDF2;
+    color: #FFFFFF;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

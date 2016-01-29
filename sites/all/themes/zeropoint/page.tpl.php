@@ -51,11 +51,17 @@
 	</div><!-- /top-elements -->
 	
 	<div id="logo_n_menu">
+    <div id="navigation" class="navigation">
 		<?php if (isset($primary_links)) { ?>
 			<?php if (theme_get_setting('menutype')== '0'): ?><div class="<?php print menupos() ?>"><?php print theme('links', $primary_links, array('class' =>'links', 'id' => 'navlist')); ?></div><?php endif; ?>
 			<?php if (theme_get_setting('menutype')== '1'): ?><div id="navlinks" class="<?php print menupos() ?>"><?php print $primary_links_tree; ?></div><?php endif; ?>
 		<?php } ?>
-
+    <?php 
+    if (!empty($navigation)) { 
+      print $navigation;
+    } 
+    ?>
+    </div>
 		<div id="logo">
 		<?php if ($logo): ?>
 			<a href="<?php print check_url($front_page); ?>" title="<?php print t('Home'); ?>">
@@ -65,11 +71,9 @@
 		</div> <!-- /logo -->
 	  
 	</div>
-<?php if ($header): ?>
-  <?php print $header; ?>
-<?php endif; ?>
-
-
+  <?php if ($header): ?>
+    <?php print $header; ?>
+  <?php endif; ?>
 
 </div> <!-- /header -->
 
